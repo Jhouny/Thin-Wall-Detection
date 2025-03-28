@@ -1,6 +1,0 @@
-/home/Joule/RP3/ThinWalls/build/CMakeFiles/CGAL_Qt5_moc_and_resources.dir
-/home/Joule/RP3/ThinWalls/build/CMakeFiles/mesh_viewer.dir
-/home/Joule/RP3/ThinWalls/build/CMakeFiles/edit_cache.dir
-/home/Joule/RP3/ThinWalls/build/CMakeFiles/rebuild_cache.dir
-/home/Joule/RP3/ThinWalls/build/CMakeFiles/CGAL_Qt5_moc_and_resources_autogen_timestamp_deps.dir
-/home/Joule/RP3/ThinWalls/build/CMakeFiles/CGAL_Qt5_moc_and_resources_autogen.dir
