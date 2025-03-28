@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 3.10)
 
 project(MeshViewer)
 
+# Find OpenGL
+find_package(OpenGL REQUIRED)
+
 # Find CGAL
 find_package(CGAL REQUIRED COMPONENTS Core Qt5)
 
@@ -32,6 +35,8 @@ endif()
 # Include directories
 include_directories(${QGLVIEWER_INCLUDE_DIR} ${CGAL_INCLUDE_DIRS} ${EIGEN3_INCLUDE_DIR})
 
+option(CGAL_BUILD_GRAPHICS "Build CGAL with graphics" ON)
+
 # Create executable
 add_executable(mesh_viewer main.cpp)
 
@@ -40,6 +45,7 @@ target_link_libraries(mesh_viewer
     ${QGLVIEWER_LIBRARY}
     CGAL::CGAL CGAL::CGAL_Qt5
     Qt5::Core Qt5::Gui Qt5::OpenGL Qt5::Widgets
+    OpenGL::GL
 )
 
 # Ensure we use C++17 or newer
@@ -49,6 +55,7 @@ set_property(TARGET mesh_viewer PROPERTY CXX_STANDARD_REQUIRED ON)
 message(STATUS "CGAL version: ${CGAL_VERSION}")
 
 target_compile_definitions(mesh_viewer PRIVATE CGAL_USE_BASIC_VIEWER CGAL_EIGEN3_ENABLED)
+
 
 set(CMAKE_BUILD_TYPE Debug)
 
