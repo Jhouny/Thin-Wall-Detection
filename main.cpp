@@ -10,7 +10,9 @@
 #include <CGAL/Polygon_mesh_processing/IO/polygon_mesh_io.h>
 #include <CGAL/extract_mean_curvature_flow_skeleton.h>
 #include <CGAL/Polygon_mesh_processing/remesh.h>
+
 #include <iostream>
+#include <stdlib.h>
 #include <unordered_map>
 
 namespace PMP = CGAL::Polygon_mesh_processing;
@@ -32,13 +34,15 @@ typedef Skeletonization::Skeleton						Skeleton;
 typedef Skeleton::vertex_descriptor						Skeleton_vertex;
 
 // Threshold for thin walls
-const double THIN_WALL_THRESHOLD = 0.05;  // Adjust based on mesh scale
+double MIN_WALL_THRESHOLD = 0.5;  
 
 int main(int argc, char* argv[]) {
     // Check input
     if (argc < 2) {
         std::cerr << "Usage: " << argv[0] << " mesh_file.off\n";
         return EXIT_FAILURE;
+    } else if (argc == 3) {
+    	MIN_WALL_THRESHOLD = strtod(argv[2], NULL);
     }
 
     // Load the mesh
@@ -57,7 +61,7 @@ int main(int argc, char* argv[]) {
     SurfaceMesh original_mesh;
     original_mesh = mesh;
 
-    CGAL::Polygon_mesh_processing::isotropic_remeshing(mesh.faces(), 0.01, mesh); 
+    CGAL::Polygon_mesh_processing::isotropic_remeshing(mesh.faces(), MIN_WALL_THRESHOLD/2, mesh); 
 
     /*Skeleton skeleton;
     Skeletonization skeletonization(mesh);
