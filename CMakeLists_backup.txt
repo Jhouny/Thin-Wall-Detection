@@ -1,0 +1,17 @@
+cmake_minimum_required(VERSION 3.1)
+project(CGAL_MeshViewer)
+
+find_library(QGLVIEWER_LIBRARY NAMES QGLViewer-qt5 QGLViewer-qt6 PATHS /usr/lib /usr/local/lib)
+find_path(QGLVIEWER_INCLUDE_DIR NAMES QGLViewer/qglviewer.h PATHS /usr/include /usr/local/include)
+
+include_directories(${QGLVIEWER_INCLUDE_DIR})
+
+find_package(CGAL REQUIRED COMPONENTS Qt5)
+find_package(Qt5 COMPONENTS OpenGL Widgets UiTools REQUIRED)
+find_package(QGLViewer REQUIRED)
+
+add_executable(mesh_viewer main.cpp)
+target_link_libraries(mesh_viewer ${QGLVIEWER_LIBRARY} CGAL::CGAL Qt5::OpenGL Qt5::Widgets Qt5::UiTools )
+
+# Define CGAL_USE_BASIC_VIEWER to enable CGAL::draw()
+target_compile_definitions(mesh_viewer PRIVATE CGAL_USE_BASIC_VIEWER)
